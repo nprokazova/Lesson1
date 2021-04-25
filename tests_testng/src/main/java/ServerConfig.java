@@ -6,4 +6,6 @@ public interface ServerConfig extends Config {
     @DefaultValue("42")
     int maxThreads();
 
+    String URL();
+
 }
