@@ -24,7 +24,7 @@ public class Lesson6 {
     ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
     @BeforeTest
-    public void StartUp() {
+    public void startUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");

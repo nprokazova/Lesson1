@@ -18,7 +18,7 @@ public class SampleTest {
     protected static WebDriver driver;
 
     @BeforeTest
-    public void StartUp() {
+    public void startUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");
