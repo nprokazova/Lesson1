@@ -7,5 +7,6 @@ public interface ServerConfig extends Config {
     int maxThreads();
 
     String URL();
+    String URL_TELE2();
 
 }
