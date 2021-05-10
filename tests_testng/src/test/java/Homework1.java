@@ -15,20 +15,20 @@ public class Homework1 {
     protected static WebDriver driver;
 
     @BeforeTest
-    public void StartUp() {
+    public void startUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");
     }
 
     @AfterTest
-    public void End() {
+    public void end() {
         if (driver != null)
             driver.quit();
     }
 
     @Test
-    public void TitleVerification() {
+    public void titleVerification() {
         ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
         driver.get(cfg.URL());

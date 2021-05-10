@@ -14,20 +14,20 @@ public class Lesson3 {
     protected static WebDriver driver;
 
     @BeforeTest
-    public void StartUp(){
+    public void startUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");
     }
 
     @AfterTest
-    public void End(){
+    public void end(){
         if (driver!=null)
             driver.quit();
     }
 
     @Test
-    public void LogExample(){
+    public void logExample(){
         ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
         logger.info("Start test: info level");
@@ -42,7 +42,7 @@ public class Lesson3 {
     }
 
     @Test
-    public void WebDriverTest(){
+    public void webDriverTest(){
         driver.get("https://otus.ru");
         logger.info("Сайт открыт");
 

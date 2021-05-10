@@ -22,7 +22,7 @@ public class Homework7 {
     ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
     @BeforeTest
-    public void StartUp(){
+    public void startUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");
@@ -31,7 +31,7 @@ public class Homework7 {
     }
 
     @AfterTest
-    public void End(){
+    public void end(){
         if (driver!=null)
             driver.quit();
     }

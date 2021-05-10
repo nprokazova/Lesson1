@@ -24,7 +24,7 @@ public class Lesson6 {
     ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
 
     @BeforeTest
-    public void StartUp() {
+    public void startUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         logger.info("Драйвер поднят");
@@ -38,21 +38,20 @@ public class Lesson6 {
         }
     }
 
-    public void auth() {
-        String login = "test.ru";
-        String password = "yturoex";
+    private void auth()
+    {
+        String login = "fawodo3192@chikd73.com";
+        String password = "Qazwsx123";
         String locator = "button.header2__auth";
-        WebElement el = driver.findElement(By.cssSelector(locator));
-        el.click();
-        driver.findElement(By.cssSelector(locator));
-        driver.findElement(By.cssSelector("div.new-input-line_slim:nth-child(3)>input:nth-child(1)")).sendKeys(login);
+        driver.findElement(By.cssSelector(locator)).click();
+        driver.findElement(By.cssSelector("div.new-input-line_slim:nth-child(3) > input:nth-child(1)")).sendKeys(login);
         driver.findElement(By.cssSelector(".js-psw-input")).sendKeys(password);
-        driver.findElement(By.cssSelector("div.new-input-line_last:nth-child(5)>button:nth-child(1)")).submit();
-
+        driver.findElement(By.cssSelector("div.new-input-line_last:nth-child(5) > button:nth-child(1)")).submit();
         logger.info("Авторизация прошла успешно");
     }
 
-    public void enterLK(){
+    private void  enterLK()
+    {
         String locator = ".ic-blog-default-avatar";
         WebElement icon = driver.findElement(By.cssSelector(locator));
         Actions actions = new Actions(driver);
@@ -62,56 +61,63 @@ public class Lesson6 {
     }
 
     @Test
-    public void openPage(){
-        //Открыть otus.ru
+    public void openPage() {
+        //1. Открыть otus.ru
         driver.get(cfg.URL());
-        logger.info("Страница открыта");
-        //Авторизоваться на сайте
+        logger.info("Открыта страница отус");
+        //2. Авторизоваться на сайте
         auth();
-        //Войтив личный кабинет
+        //3. Войти в личный кабинет
         enterLK();
-        //В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
-        driver
-                .findElement(By.id("id_fname_latin"))
-                .clear();
-//        driver.findElement(By.id("id_lname")).clear();
-//        driver.findElement(By.id("id_lname_latin")).clear();
+        //4. В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
+        driver.findElement(By.id("id_fname_latin")).clear();
+        driver.findElement(By.id("id_lname")).clear();
+        driver.findElement(By.id("id_lname_latin")).clear();
         driver.findElement(By.cssSelector(".input-icon > input:nth-child(1)")).clear();
 
         driver.findElement(By.id("id_fname_latin")).sendKeys("Nataly");
-//        driver.findElement(By.id("id_lname")).sendKeys("N");
+//        driver.findElement(By.id("id_lname")).sendKeys("");
+//        driver.findElement(By.id("id_lname_latin")).sendKeys("");
         driver.findElement(By.cssSelector(".input-icon > input:nth-child(1)")).sendKeys("20.03.1990");
-
         //Страна
-        if(!driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).isDisplayed())
+        if(!driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).getText().contains("Россия"))
         {
-            driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)"));
+            driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).click();
             driver.findElement(By.xpath("//*[contains(text(), 'Россия')]")).click();
         }
-
-        //Нажать сохранить
+        //Город
+        if(!driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).getText().contains("Москва"))
+        {
+            driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).click();
+            driver.findElement(By.xpath("//*[contains(text(), 'Москва')]")).click();
+        }
+        //уровень англ.
+        if(!driver.findElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText().contains("Upper"))
+        {
+            driver.findElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).click();
+            driver.findElement(By.xpath("//*[contains(text(), 'Upper')]")).click();
+        }
+        //5. Нажать сохранить
         driver.findElement(By.xpath("//*[contains(text(), 'Сохранить и продолжить')]")).click();
-
         new WebDriverWait(driver, 10).until(ExpectedConditions.urlToBe("https://otus.ru/lk/biography/skills/"));
-
-        //Открыть в чистом браузере
+        //6. Открыть https://otus.ru в "чистом браузере"
         driver.quit();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         logger.info("Драйвер поднят");
         driver.get(cfg.URL());
-
-        //Авторизоваться на сайте
+        //7. Авторизоваться на сайте
         auth();
-
-        //Войти в личный кабинет
+        //8. Войти в личный кабинет
         enterLK();
-
-        //Проверить, что в разделе "о себе" отображаются указанные ранее данные
-        Assert.assertEquals("Nataly", driver.findElement(By.id("id_fname_latin")).getAttribute("Value"));
-        Assert.assertEquals("20.03.1990", driver.findElement(By.cssSelector(".input-icon > input:nth-child(1)")).getAttribute("Value"));
-
-
+        //9. Проверить, что в разделе о себе отображаются указанные ранее данные
+        Assert.assertEquals("Nataly", driver.findElement(By.id("id_fname_latin")).getAttribute("value"));
+//        Assert.assertEquals("", driver.findElement(By.id("id_lname")).getAttribute("value"));
+//        Assert.assertEquals("", driver.findElement(By.id("id_lname_latin")).getAttribute("value"));
+        Assert.assertEquals("20.03.1990", driver.findElement(By.cssSelector(".input-icon > input:nth-child(1)")).getAttribute("value"));
+        Assert.assertEquals("Россия", driver.findElement(By.cssSelector(".js-lk-cv-dependent-master > label:nth-child(1) > div:nth-child(2)")).getText());
+        Assert.assertEquals("Москва", driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city > label:nth-child(1) > div:nth-child(2)")).getText());
+        Assert.assertEquals("Upper", driver.findElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
     }
 
 }
