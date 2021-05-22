@@ -27,16 +27,16 @@ public class Homework8 {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         action = new Actions(driver);
         logger.info("Драйвер поднят");
     }
 
     @AfterTest
     public void setDown() {
-        if (driver != null) {
-           driver.quit();
-        }
+      if (driver != null) {
+         driver.quit();
+      }
     }
 
     @Test
@@ -67,25 +67,27 @@ public class Homework8 {
         new WebDriverWait(driver, 5).until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector("[data-tid='8bc8e36b']"))));
 
         //Добавить первый в списке Samsung
+        new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Samsung')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")));
         driver.findElement(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Samsung')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")).click();
 
         //Проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[href='/my/compare-lists']"))));
-        Assert.assertTrue(driver.findElements(By.cssSelector("[href='/my/compare-lists']")).size()!=0);
+        new WebDriverWait(driver, 15).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-tid='11882e1c']")));
+        Assert.assertTrue(driver.findElements(By.xpath("//*[text()='Сравнить']")).size()!=0);
         logger.info("Проверка, что отобразилась плашка \"Товар {имя товара} добавлен к сравнению\", прошла успешно");
 
         //Добавить первый в списке Xiaomi
+        new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Xiaomi')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")));
         driver.findElement(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Xiaomi')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")).click();
 
         //Проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[href='/my/compare-lists']"))));
-        Assert.assertTrue(driver.findElements(By.cssSelector("[href='/my/compare-lists']")).size()!=0);
+        new WebDriverWait(driver, 15).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-tid='11882e1c']")));
+        Assert.assertTrue(driver.findElements(By.xpath("//*[text()='Сравнить']")).size()!=0);
         logger.info("Проверка, что отобразилась плашка \"Товар {имя товара} добавлен к сравнению\", прошла успешно");
 
 
         //Перейти в раздел Сравнение
-        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@href='/my/compare-lists']/span"))));
-        driver.findElement(By.xpath("//*[@href='/my/compare-lists']/..")).click();
+        new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[text()='Сравнить']"))));
+        driver.findElement(By.xpath("//*[text()='Сравнить']")).click();
         logger.info("Переход на страницу Сравнения");
 
         //Проверить, что в списке товаров 2 позиции
