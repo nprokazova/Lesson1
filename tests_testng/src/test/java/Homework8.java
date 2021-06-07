@@ -13,8 +13,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
-
 public class Homework8 {
     protected static WebDriver driver;
     protected Actions action;
@@ -27,7 +25,6 @@ public class Homework8 {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         action = new Actions(driver);
         logger.info("Драйвер поднят");
     }
@@ -50,7 +47,7 @@ public class Homework8 {
         logger.info("Клик на 'Электроника' прошел успешно");
 
         //Переход на страницу "Смартфоны"
-        driver.findElement(By.cssSelector("a[href='/catalog--smartfony/16814639/list?glfilter=16816262%3A16816264&hid=91491']")).click();
+        driver.findElement(By.xpath("//a[text()='Смартфоны']")).click();
         logger.info("Клик на 'Смартфоны' прошел успешно");
 
         //Отфильтровать список товаров: Samsung
@@ -70,19 +67,19 @@ public class Homework8 {
         new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Samsung')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")));
         driver.findElement(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Samsung')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")).click();
 
-        //Проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
+        //Проверить, что отобразилась плашка "Товар Samsung добавлен к сравнению"
         new WebDriverWait(driver, 15).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-tid='11882e1c']")));
         Assert.assertTrue(driver.findElements(By.xpath("//*[text()='Сравнить']")).size()!=0);
-        logger.info("Проверка, что отобразилась плашка \"Товар {имя товара} добавлен к сравнению\", прошла успешно");
+        logger.info("Проверка, что отобразилась плашка \"Товар Samsung добавлен к сравнению\", прошла успешно");
 
         //Добавить первый в списке Xiaomi
         new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Xiaomi')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")));
         driver.findElement(By.xpath("((//*[@data-autotest-id='product-snippet']//*[contains(span, 'Xiaomi')])[1]/../../../..//*[@data-tid='64a067c1'])[2]")).click();
 
-        //Проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
+        //Проверить, что отобразилась плашка "Товар Xiaomi добавлен к сравнению"
         new WebDriverWait(driver, 15).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-tid='11882e1c']")));
         Assert.assertTrue(driver.findElements(By.xpath("//*[text()='Сравнить']")).size()!=0);
-        logger.info("Проверка, что отобразилась плашка \"Товар {имя товара} добавлен к сравнению\", прошла успешно");
+        logger.info("Проверка, что отобразилась плашка \"Товар Xiaomi добавлен к сравнению\", прошла успешно");
 
 
         //Перейти в раздел Сравнение
