@@ -8,5 +8,6 @@ public interface ServerConfig extends Config {
 
     String URL();
     String URL_TELE2();
+    String URL_MARKET_YA();
 
 }
