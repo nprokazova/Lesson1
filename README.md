@@ -1,0 +1,1 @@
+для запуска otusPageObjectTest введите свои параметры в секцию @Parameters <username>, <password>, <name>, <surname>, <name_latin>, <surname_latin>, <birthday>, <id_blog_name>
