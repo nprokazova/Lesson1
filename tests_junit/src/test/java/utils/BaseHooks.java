@@ -2,23 +2,58 @@ package utils;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.opera.OperaOptions;
 
 import java.util.concurrent.TimeUnit;
 
+
 public class BaseHooks {
+
     protected static WebDriver driver;
+    private static String BROWSER;
 
-    @Before
+    @BeforeClass
     public static void setup() {
-        driver = WebDriverFactory.createDriver(Browsers.CHROME);
 
-        if (driver != null) {
+        BROWSER = System.getProperty("browser");
+
+        if (BROWSER == null || BROWSER.equalsIgnoreCase("CHROME")) {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setHeadless(true);
+            driver = WebDriverFactory.createDriver(Browsers.CHROME, chromeOptions);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().window().maximize();
+        } else if (BROWSER.equalsIgnoreCase("FIREFOX")) {
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.setHeadless(true);
+            driver = WebDriverFactory.createDriver(Browsers.FIREFOX, firefoxOptions);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().window().maximize();
+        } else if (BROWSER.equalsIgnoreCase("OPERA")) {
+            OperaOptions operaOptions = new OperaOptions();
+            operaOptions.addArguments("headless");
+            driver = WebDriverFactory.createDriver(Browsers.OPERA, operaOptions);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().window().maximize();
         }
+
+
     }
+
+
+//  @BeforeClass
+//  public static void setup() {
+//      driver = WebDriverFactory.createDriver(Browsers.CHROME);
+
+//      if (driver != null) {
+//          driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//          driver.manage().window().maximize();
+//      }
+//  }
 
     @AfterClass
     public static void teardown() {

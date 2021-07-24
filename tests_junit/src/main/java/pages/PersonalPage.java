@@ -12,14 +12,14 @@ public class PersonalPage extends AbstractPage {
     private static final String URL_PERSONAL = "https://otus.ru/lk/biography/personal/";
     private static final String URL_SKILLS = "https://otus.ru/lk/biography/skills/";
 
-    private By save = By.xpath("//*[contains(text(), 'Сохранить и продолжить')]");
+    private By save = By.cssSelector("[name='continue']");
 
-    By name_locator = By.cssSelector("#id_fname");
-    By surname_locator = By.cssSelector("#id_lname");
-    By name_locator_latin = By.cssSelector("#id_fname_latin");
-    By surname_locator_latin = By.cssSelector("#id_lname_latin");
-    By id_blog_name_locator = By.cssSelector("#id_blog_name");
-    By birthday_locator = By.cssSelector(".input-icon > input:nth-child(1)");
+    By nameLocator = By.cssSelector("#id_fname");
+    By surnameLocator = By.cssSelector("#id_lname");
+    By nameLocatorLatin = By.cssSelector("#id_fname_latin");
+    By surnameLocatorLatin = By.cssSelector("#id_lname_latin");
+    By idBlogNameLocator = By.cssSelector("#id_blog_name");
+    By birthdayLocator = By.cssSelector(".input-icon > input:nth-child(1)");
 
     String locator = ".ic-blog-default-avatar";
 
@@ -42,19 +42,19 @@ public class PersonalPage extends AbstractPage {
         actions.moveToElement(icon).build().perform();
         driver.get(URL_PERSONAL);
 
-        driver.findElement(name_locator_latin).clear();
-        driver.findElement(surname_locator_latin).clear();
-        driver.findElement(name_locator).clear();
-        driver.findElement(surname_locator).clear();
-        driver.findElement(id_blog_name_locator).clear();
-        driver.findElement(birthday_locator).clear();
+        driver.findElement(nameLocatorLatin).clear();
+        driver.findElement(surnameLocatorLatin).clear();
+        driver.findElement(nameLocator).clear();
+        driver.findElement(surnameLocator).clear();
+        driver.findElement(idBlogNameLocator).clear();
+        driver.findElement(birthdayLocator).clear();
 
-        driver.findElement(name_locator).sendKeys(name);
-        driver.findElement(surname_locator).sendKeys(surname);
-        driver.findElement(name_locator_latin).sendKeys(name_latin);
-        driver.findElement(surname_locator_latin).sendKeys(surname_latin);
-        driver.findElement(id_blog_name_locator).sendKeys(id_blog_name);
-        driver.findElement(birthday_locator).sendKeys(birthday);
+        driver.findElement(nameLocator).sendKeys(name);
+        driver.findElement(surnameLocator).sendKeys(surname);
+        driver.findElement(nameLocatorLatin).sendKeys(name_latin);
+        driver.findElement(surnameLocatorLatin).sendKeys(surname_latin);
+        driver.findElement(idBlogNameLocator).sendKeys(id_blog_name);
+        driver.findElement(birthdayLocator).sendKeys(birthday);
 
         // Нажать сохранить
         driver.findElement(save).click();
@@ -63,26 +63,26 @@ public class PersonalPage extends AbstractPage {
     }
 
     public By getName_locator() {
-        return name_locator;
+        return nameLocator;
     }
 
     public By getSurname_locator() {
-        return surname_locator;
+        return surnameLocator;
     }
 
     public By getBirthday_locator() {
-        return birthday_locator;
+        return birthdayLocator;
     }
 
     public By getName_locator_latin() {
-        return name_locator_latin;
+        return nameLocatorLatin;
     }
 
     public By getSurname_locator_latin() {
-        return surname_locator_latin;
+        return surnameLocatorLatin;
     }
 
     public By getId_blog_name_locator() {
-        return id_blog_name_locator;
+        return idBlogNameLocator;
     }
 }
