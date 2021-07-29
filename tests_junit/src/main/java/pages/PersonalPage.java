@@ -20,12 +20,15 @@ public class PersonalPage extends AbstractPage {
     By surnameLocatorLatin = By.cssSelector("#id_lname_latin");
     By idBlogNameLocator = By.cssSelector("#id_blog_name");
     By birthdayLocator = By.cssSelector(".input-icon > input:nth-child(1)");
+    By addContactButton = By.cssSelector(".lk-cv-block__action.lk-cv-block__action_md-no-spacing.js-formset-add.js-lk-cv-custom-select-add");
+    By viberTitle = By.cssSelector("[title='Viber']");
+    By textField = By.cssSelector("[name='contact-0-value']");
 
     String locator = ".ic-blog-default-avatar";
 
     WebElement icon = driver.findElement(By.cssSelector(locator));
 
-    public PersonalPage (WebDriver driver) {
+    public PersonalPage(WebDriver driver) {
         super(driver);
     }
 
@@ -35,8 +38,7 @@ public class PersonalPage extends AbstractPage {
         return this;
     }
 
-    public PersonalPage enterPD(String name, String surname, String name_latin, String surname_latin, String birthday, String id_blog_name)
-    {
+    public PersonalPage enterPD(String name, String surname, String name_latin, String surname_latin, String birthday, String id_blog_name) {
         // В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
         Actions actions = new Actions(driver);
         actions.moveToElement(icon).build().perform();
@@ -56,33 +58,41 @@ public class PersonalPage extends AbstractPage {
         driver.findElement(idBlogNameLocator).sendKeys(id_blog_name);
         driver.findElement(birthdayLocator).sendKeys(birthday);
 
+        driver.findElement(addContactButton).click();
+        driver.findElement(viberTitle).submit();
+        driver.findElement(textField).sendKeys("Viber");
+
         // Нажать сохранить
         driver.findElement(save).click();
         new WebDriverWait(driver, 10).until(ExpectedConditions.urlToBe(URL_SKILLS));
         return this;
     }
 
-    public By getName_locator() {
+    public By getNameLocator() {
         return nameLocator;
     }
 
-    public By getSurname_locator() {
+    public By getSurnameLocator() {
         return surnameLocator;
     }
 
-    public By getBirthday_locator() {
+    public By getBirthdayLocator() {
         return birthdayLocator;
     }
 
-    public By getName_locator_latin() {
+    public By getNameLocatorLatin() {
         return nameLocatorLatin;
     }
 
-    public By getSurname_locator_latin() {
+    public By getSurnameLocatorLatin() {
         return surnameLocatorLatin;
     }
 
-    public By getId_blog_name_locator() {
+    public By getIdBlogNameLocator() {
         return idBlogNameLocator;
+    }
+
+    public By getViberTitle() {
+        return viberTitle;
     }
 }

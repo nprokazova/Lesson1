@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.runner.RunWith;
 import pages.LoginPage;
 import pages.PersonalPage;
-import utils.BaseHooks;
 
 
 @RunWith(JUnitParamsRunner.class)
@@ -25,7 +24,6 @@ public class OtusPageObjectTest extends BaseHooks {
     private static String surnameLatin = System.getProperty("nameLatin");
     private static String birthday = System.getProperty("birthday");
     private static String idBlogName = System.getProperty("idBlogName");
-
 
     @Test
     public void otusPageObjectTest() {
@@ -63,17 +61,17 @@ public class OtusPageObjectTest extends BaseHooks {
         logger.info("Personal page was opened");
 
         // Проверить, что в разделе "О себе" отображаются указанные ранее данные
-        Assert.assertEquals(name, driver.findElement(personalPage.getName_locator()).getAttribute("value"));
+        Assert.assertEquals(name, driver.findElement(personalPage.getNameLocator()).getAttribute("value"));
         logger.info("Name is correct");
-        Assert.assertEquals(surname, driver.findElement(personalPage.getSurname_locator()).getAttribute("value"));
+        Assert.assertEquals(surname, driver.findElement(personalPage.getSurnameLocator()).getAttribute("value"));
         logger.info("Surname is correct");
-        Assert.assertEquals(nameLatin, driver.findElement(personalPage.getName_locator_latin()).getAttribute("value"));
+        Assert.assertEquals(nameLatin, driver.findElement(personalPage.getNameLocatorLatin()).getAttribute("value"));
         logger.info("Name Latin is correct");
-        Assert.assertEquals(surnameLatin, driver.findElement(personalPage.getSurname_locator_latin()).getAttribute("value"));
+        Assert.assertEquals(surnameLatin, driver.findElement(personalPage.getSurnameLocatorLatin()).getAttribute("value"));
         logger.info("Surname Latin is correct");
-        Assert.assertEquals(birthday, driver.findElement(personalPage.getBirthday_locator()).getAttribute("value"));
+        Assert.assertEquals(birthday, driver.findElement(personalPage.getBirthdayLocator()).getAttribute("value"));
         logger.info("Birthday is correct");
-        Assert.assertEquals(idBlogName, driver.findElement(personalPage.getId_blog_name_locator()).getAttribute("value"));
+        Assert.assertEquals(idBlogName, driver.findElement(personalPage.getIdBlogNameLocator()).getAttribute("value"));
         logger.info("Id blog name is correct");
     }
 

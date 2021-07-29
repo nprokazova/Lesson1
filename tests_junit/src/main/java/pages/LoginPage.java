@@ -21,8 +21,7 @@ public class LoginPage extends AbstractPage {
         return this;
     }
 
-    public void auth(String login, String password)
-    {
+    public void auth(String login, String password) {
         driver.findElement(buttonAuth).click();
         driver.findElement(loginAuth).sendKeys(login);
         driver.findElement(passwordAuth).sendKeys(password);
